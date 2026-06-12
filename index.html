@@ -106,7 +106,7 @@ Another failure mode is that SelfEvo-VGGT succesfully reconstructs dynamic objec
 <br>
 <div class="center">
   <p>
-The second example below gives us a clue about this failure mode. Even though the camera from the video is just rotating from left to right -- maybe also translating a bit to the right -- and thus the camera estimation should be clustered around a single point, the camera estimation from SelfEvo-VGGT is scattered, especially in the last few frames. This suggests that the camera estimation is not very accurate, which we suspect is due to the fact that SelfEvo freezes the camera estimation module from VGGT and the error from the pretrained model is propagated to the student model.
+The second example below gives us a clue about this failure mode. Even though the camera from the video is just rotating from left to right -- maybe also translating a bit to the right -- and thus the camera estimation should be clustered around a single point, the camera estimation from SelfEvo-VGGT is scattered, especially in the last few frames. This suggests that the camera estimation is not very accurate, which we suspect is due to the fact that SelfEvo freezes the camera estimation module from VGGT and it doesn't calibrate camera positions with dynamic objects.
   </p>
 </div>
 <div class="center">
@@ -115,7 +115,7 @@ The second example below gives us a clue about this failure mode. Even though th
 <br>
 <div class="center">
   <p>
-The last case is videos with fast small motions, such as a flying bird. In the following video, a bird flies from right to left in front of the building, while the camera slowly orbits around the building. Since SelfEvo-VGGT is able to reconstruct walking pedestrians at the bottom left, we expected it to be able to reconstruct the trace of a flying bird as well, but it is not captured at all. This is likely because the student model is intentionally trained upon an image sequence with some frames dropped (i.e. without some context), and thus it might not be able to learn the the bird's contextual continuity between two frames with a large gap, treating it as noise.
+The last case is videos with fast small motions, such as a flying bird. In the following video, a bird flies from right to left in front of the building, while the camera slowly orbits around the building. Since SelfEvo-VGGT is able to reconstruct motorcyclists at the bottom left, we expected it to be able to reconstruct the trace of a flying bird as well, but it is not captured at all. This likely comes from two possible reasons: first, the bird is very small and fast-moving, so it might be treated as noise and ignored by the backbone model, VGGT; second, the student model is intentionally trained upon an image sequence with some frames dropped (i.e. without some context), and thus it might not be able to learn the the bird's contextual continuity between two frames with a large gap.
   </p>
 </div>
 <div class="center">
