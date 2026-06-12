@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="styles.css">
     <title>EE243 Final Project</title>
 </head>
+<body>
 <h1>EE243 Final Project</h1>
 <div class="center">
 by Calvin Glisson, Chansong Lim
 </div>
 
-<body>
 <h2>Assigned Paper and Frontier</h2>
 <div class="center">
   <p>
@@ -29,6 +29,7 @@ However, we found that Selfi is not the current frontier of this task, and does 
 The authors post-train VGGT on the OmniWorld-Game dataset, a synthetic video dataset of video game environments. In subsequent evauluations, they show that the post-trained model SelfEvo-VGGT outperforms VGGT both on this dataset and on the standard evaluation benchmarks of VGGT, demonstrating that their method does not overfit to the new domain and broadly improves the model's capabilities. This is true for both camera pose estimation and depth estimation across diverse benchmarks. For these reasons, we chose to use the official SelfEvo-VGGT model and code for the project, and explore what kinds of data it performs well or poorly on.
   </p>
 </div>
+
 <h2>Success Cases</h2>
 <div class="center">
   <p>
@@ -60,8 +61,8 @@ the results for VGGT (left) and SelfEvo-VGGT (right) are as follows:
   <img src="imgs/tower_vggt.png">
   <img src="imgs/tower_selfevovggt.png">
 </div>
+
 <h2>Failure Cases</h2>
-</div>
 <div class="center">
   <p>
 We were able to identify three main failure cases where even SelfEvo-VGGT cannot produce an accurate reconstruction. One case that is challenging is videos with reflections, especially large mirrors. Mirrors present the illusion of there being objects and space where there is none, and often present distortions and specularities that can be confusing for a 3D reconstruction method and make an otherwise static scene appear dynamic. As a result, when inputting frames from a video that gently sways the camera in front of mirrors and specular surfaces, the resulting reconstruction shows a variety of failure modes. Below are some examples: on the left are frames from the video, and on the right are the resulting reconstructions. Notably, the areas with mirrors or specularities are absent from the reconstruction, and some reconstructions turn out to be warped and geometrically broken.
@@ -123,11 +124,25 @@ The last case is videos with fast small motions, such as a flying bird. In the f
   <img src="imgs/top_view_0_all.png" height="400px">
 </div>
 <br>
+
 <h2>Conclusion</h2>
 <div class="center">
   <p>
 In this project, we explored SelfEvo, a self-improving framework for improving 3D reconstruction models. By looking at how it handles different videos, we found both its strengths and weaknesses. SelfEvo-VGGT creates better dynamic reconstructions than VGGT. However, it still struggles with videos with specularities and reflections, videos with fast small motions, and videos where the camera estimation is inaccurate. The reason for these failure modes seems to come from the fundamental capabilities of pretrained VGGT model as well as the design of SelfEvo's student-teacher framework. Overall, SelfEvo is an innovative method that significantly improves VGGT, but there are still many opportunities for improvement and future work in this area.
   </p>
+</div>
+<br>
+
+<h2>Demo</h2>
+<div class="center">
+<iframe width="560" height="315" 
+  src="https://www.youtube.com/embed/hLThSBJ0mvo"
+  title="Demo" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen>
+</iframe>
 </div>
 
 </body>
