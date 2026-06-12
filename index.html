@@ -14,7 +14,7 @@ by Calvin Glisson, Chansong Lim
 <h2>Assigned Paper and Frontier</h2>
 <div class="center">
   <p>
-Our assigned paper was <a href="https://arxiv.org/pdf/2512.08930">"Selfi: Self Improving Reconstruction Engine via 3D Geometric Feature Alignment"</a>, a paper that introduces a self-improving framework for improving pretrained 3D reconstruction models such as VGGT. Recent 3DGS methods have made significant progress in one simple feed-forward Gaussian prediction (e.g. AnySplat) beyond optimization-based methods, but they often lack multiview consistency, even though each view has a plausible 3D structure. Selfi aims to address this issue by training an additional adapter head that aligns feature maps across views, leveraging VGGT's depth and camera pose as pseudo ground truth. The aligned feature maps are then used in U-Net, which is also trained to produce Gaussian primitives in one shot, guaranteeing the final output to be multiview consistent.
+Our assigned paper was <a href="https://arxiv.org/pdf/2512.08930">"Selfi: Self Improving Reconstruction Engine via 3D Geometric Feature Alignment"</a>, a paper that introduces a self-improving framework for improving pretrained 3D reconstruction models such as VGGT. Recent 3DGS methods have made significant progress in one simple feed-forward Gaussian prediction (e.g. <a href="https://arxiv.org/pdf/2505.23716">AnySplat</a>) beyond optimization-based methods, but they often lack multiview consistency, even though each view has a plausible 3D structure. Selfi aims to address this issue by training an additional adapter head that aligns feature maps across views, leveraging VGGT's depth and camera pose as pseudo ground truth. The aligned feature maps are then used in U-Net, which is also trained to produce Gaussian primitives in one shot, guaranteeing the final output to be multiview consistent.
   </p>
 </div>
 <br>
@@ -121,6 +121,13 @@ The last case is videos with fast small motions, such as a flying bird. In the f
 <div class="center">
   <img src="imgs/top_view_6.gif" height="400px">
   <img src="imgs/top_view_0_all.png" height="400px">
+</div>
+<br>
+<h2>Conclusion</h2>
+<div class="center">
+  <p>
+In this project, we explored SelfEvo, a self-improving framework for improving 3D reconstruction models. By looking at how it handles different videos, we found both its strengths and weaknesses. SelfEvo-VGGT creates better dynamic reconstructions than VGGT. However, it still struggles with videos with specularities and reflections, videos with fast small motions, and videos where the camera estimation is inaccurate. The reason for these failure modes seems to come from the fundamental capabilities of pretrained VGGT model as well as the design of SelfEvo's student-teacher framework. Overall, SelfEvo is an innovative method that significantly improves VGGT, but there are still many opportunities for improvement and future work in this area.
+  </p>
 </div>
 
 </body>
