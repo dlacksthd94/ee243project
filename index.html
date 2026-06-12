@@ -10,33 +10,53 @@
 by Calvin Glisson, Chansong Lim
 </div>
 
-<h2>The current frontier: SelfEvo</h2>
 <body>
+<h2>Assigned Paper and Frontier</h2>
 <div class="center">
-We identified the current frontier in 3D reconstruction with public code as SelfEvo, a method for improving pretrained models (such as VGGT) with self-distillation on unlabeled videos. The authors accomplish this using a student-teacher framework where the student must learn to create accurate reconstructions without access to all of the same video context that the teacher has, making a constant self-improvement pipeline possible. Evaluations show the method to consistently outperform standard VGGT across a variety of datasets, including the native evaluation benchmarks of VGGT. The self-distillation framework also makes it possible to train on natural, dynamic scenes where VGGT struggles.
+Our assigned paper was "Selfi: Self Improving Reconstruction Engine via 3D Geometric Feature Alignment", a paper that introduces a self-improving framework for improving pretrained 3D reconstruction models such as VGGT. It achieves this using VGGT outputs as pseudo-ground truth. However, we found that Selfi is not the current frontier of this task, and does not have public code. The Selfi paper is cited by a related work called SelfEvo which we identified as the current frontier. Similarly to Selfi, SelfEvo improves the pretrained VGGT backbone using a self-improving framework. The authors accomplish this using a student-teacher framework where the student must learn to create accurate reconstructions without access to all of the same video context that the teacher has, making a constant self-improvement pipeline possible even on unlabeled data. Evaluations show the method to consistently outperform standard VGGT across a variety of datasets, including the native evaluation benchmarks of VGGT. The self-distillation framework also makes it possible to train on natural, dynamic scenes where VGGT struggles.
+</div>
+<br>
+<div class="center">
+The authors post-train VGGT on the OmniWorld-Game dataset, a synthetic video dataset of video game environments. In subsequent evauluations, they show that the post-trained model SelfEvo-VGGT outperforms VGGT both on this dataset and on the standard evaluation benchmarks of VGGT, demonstrating that their method does not overfit to the new domain and broadly improves the model's capabilities. This is true for both camera pose estimation and depth estimation across diverse benchmarks. For these reasons, we chose to use the official SelfEvo-VGGT model and code for the project, and explore what kinds of data it performs well or poorly on.
 </div>
 <h2>Success Cases</h2>
 <div class="center">
-For a typical scene, SelfEvoVGGT creates an excellent reconstruction. For example, here is the reconstruction it creates from a video of the benches on the second floor of Winston Chung Hall:
+For a typical scene, SelfEvo-VGGT creates an excellent reconstruction. For example, here is the reconstruction it creates from a video of the benches on the second floor of Winston Chung Hall:
 </div>
 <br>
 <div class="center">
 <img src="imgs/wch.png">
 </div>
+<br>
 <div class="center">
+The authors also demonstrate a variety of qualitative examples of SelfEvo-VGGT outperforming VGGT. For example, in a video that zooms in and out of the following building
+</div>
+<br>
+<div class="center">
+  <img src="imgs/tower_frame.png">
+</div>
+<br>
+<div class="center">
+the results for VGGT (left) and SelfEvo-VGGT (right) are as follows:
+</div>
+<br>
+<div class="center">
+  <img src="imgs/tower_vggt.png">
+  <img src="imgs/tower_selfevovggt.png">
+</div>
 <h2>Failure Cases</h2>
 </div>
 <div class="center">
-We were able to identify two main failure cases where even SelfEvoVGGT cannot produce an accurate reconstruction. One case that is challenging is videos with reflections, especially large mirrors. Mirrors present the illusion of there being objects and space where there is none, and often present distortions and specularities that can be confusing for a 3D reconstruction method and make an otherwise static scene appear dynamic. As a result, when inputting frames from a video that gently sways the camera in front of mirrors and specular surfaces, the resulting reconstruction shows a variety of failure modes. Below are some examples: on the left are frames from the video, and on the right are the resulting reconstructions. Notably, the areas with mirrors or specularities are absent from the reconstruction, and some reconstructions turn out to be warped and geometrically broken.
+We were able to identify two main failure cases where even SelfEvo-VGGT cannot produce an accurate reconstruction. One case that is challenging is videos with reflections, especially large mirrors. Mirrors present the illusion of there being objects and space where there is none, and often present distortions and specularities that can be confusing for a 3D reconstruction method and make an otherwise static scene appear dynamic. As a result, when inputting frames from a video that gently sways the camera in front of mirrors and specular surfaces, the resulting reconstruction shows a variety of failure modes. Below are some examples: on the left are frames from the video, and on the right are the resulting reconstructions. Notably, the areas with mirrors or specularities are absent from the reconstruction, and some reconstructions turn out to be warped and geometrically broken.
 </div>
 <br>
 <div class="center">
   <img src="imgs/76_2_frame_rescale.jpg">
-  <img src="imgs/mirror_result_76_2.png">
+  <img src="imgs/mirror_result_76_2_rescale.png">
 </div>
 <div class="center">
   <img src="imgs/108_0_frame_rescale.jpg">
-  <img src="imgs/mirror_result_108_0.png">
+  <img src="imgs/mirror_result_108_0_rescale.png">
 </div>
 <br>
 <div class="center">
@@ -45,7 +65,11 @@ In some cases the method incorrectly reconstructs reflected objects as if they w
 <br>
 <div class="center">
   <img src="imgs/106_6_frame_rescale.jpg">
-  <img src="imgs/mirror_result_106_6.png">
+  <img src="imgs/mirror_result_106_6_rescale.png">
+</div>
+<br>
+<div class="center">
+This shows that although SelfEvo-VGGT is an innovative improvement upon VGGT, there are still scenes where the model performance can degrade or break down entirely.
 </div>
 
 </body>
